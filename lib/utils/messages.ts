@@ -30,6 +30,24 @@ export const help = reachingOut;
 // is parsed, so its evaluation cannot happen at module loading time.
 export const getHelp = () => (process.env.DEBUG ? '' : debugHint) + help;
 
+/**
+ * Take a multiline string like:
+ *     Line One
+ *     Line Two
+ * and return a string like:
+ *     ---------------
+ *     [Warn] Line One
+ *     [Warn] Line Two
+ *     ---------------
+ * where the length of the dash rows matches the length of the longest line.
+ */
+export function warnify(msg: string) {
+	const lines = msg.split('\n').map((l) => `[Warn] ${l}`);
+	const maxLength = Math.max(...lines.map((l) => l.length));
+	const hr = '-'.repeat(maxLength);
+	return [hr, ...lines, hr].join('\n');
+}
+
 export const balenaAsciiArt = `\
  _            _
 | |__   __ _ | |  ____  _ __    __ _

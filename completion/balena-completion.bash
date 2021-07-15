@@ -7,7 +7,7 @@ _balena_complete()
   local cur prev
 
   # Valid top-level completions
-  main_commands="apps build deploy envs join keys leave login logout logs note orgs preload push scan settings ssh support tags tunnel version whoami api-key app app config device device devices env internal key key local os tag util"
+  main_commands="apps build deploy envs fleets join keys leave login logout logs note orgs preload push scan settings ssh support tags tunnel version whoami api-key app app config device device devices env internal key key local os tag util"
   # Sub-completions
   api_key_cmds="generate"
   app_cmds="create purge rename restart rm"

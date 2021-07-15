@@ -163,6 +163,7 @@ Users are encouraged to regularly update the balena CLI to the latest version.
 - Application
 
 	- [apps](#apps)
+	- [fleets](#fleets)
 	- [app &#60;nameorslug&#62;](#app-nameorslug)
 	- [app create &#60;name&#62;](#app-create-name)
 	- [app purge &#60;application&#62;](#app-purge-application)
@@ -312,14 +313,29 @@ the API key name
 
 ## apps
 
-list all your balena applications.
+The 'apps' command was renamed to 'fleets', and 'apps' is now an alias.
+THE ALIAS WILL BE REMOVED in the next major version of the balena CLI
+(so that a different 'apps' command can be implemented in the future).
+Find out more at: <link to blog or wiki or docs website>
 
-For detailed information on a particular application,
-use `balena app <application>` instead.
+For command usage, see 'balena help fleets'
+
+### Options
+
+#### -v, --verbose
+
+No-op since release v12.0.0
+
+## fleets
+
+List all your balena fleets.
+
+For detailed information on a particular fleet, use
+`balena fleet <fleet>`
 
 Examples:
 
-	$ balena apps
+	$ balena fleets
 
 ### Options
 

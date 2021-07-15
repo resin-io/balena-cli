@@ -184,7 +184,7 @@ export default class BalenaHelp extends Help {
 		'push',
 		'logs',
 		'ssh',
-		'apps',
+		'fleets',
 		'app',
 		'devices',
 		'device',

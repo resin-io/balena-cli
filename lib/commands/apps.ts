@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2016-2020 Balena Ltd.
+ * Copyright 2016-2021 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,22 @@ interface ExtendedApplication extends ApplicationWithDeviceType {
 
 interface FlagsDef {
 	help: void;
-	verbose: boolean;
+	verbose?: boolean;
 }
 
-export default class AppsCmd extends Command {
+export class FleetsCmd extends Command {
 	public static description = stripIndent`
-		List all applications.
+		List all fleets.
 
-		list all your balena applications.
+		List all your balena fleets.
 
-		For detailed information on a particular application,
-		use \`balena app <application>\` instead.
+		For detailed information on a particular fleet, use
+		\`balena fleet <fleet>\`
 	`;
 
-	public static examples = ['$ balena apps'];
+	public static examples = ['$ balena fleets'];
 
-	public static usage = 'apps';
+	public static usage = 'fleets';
 
 	public static flags: flags.Input<FlagsDef> = {
 		help: cf.help,
@@ -56,8 +56,13 @@ export default class AppsCmd extends Command {
 	public static authenticated = true;
 	public static primary = true;
 
+	protected parsed = false;
+
 	public async run() {
-		this.parse<FlagsDef, {}>(AppsCmd);
+		if (!this.parsed) {
+			this.parse<FlagsDef, {}>(FleetsCmd);
+			this.parsed = true;
+		}
 
 		const balena = getBalenaSdk();
 
@@ -92,5 +97,43 @@ export default class AppsCmd extends Command {
 				'device_count',
 			]),
 		);
+	}
+}
+
+export default class AppsCmd extends FleetsCmd {
+	public static renamedMsg = `\
+The 'apps' command was renamed to 'fleets', and 'apps' is now an alias.
+THE ALIAS WILL BE REMOVED in the next major version of the balena CLI
+(so that a different 'apps' command can be implemented in the future).
+Find out more at: <link to blog or wiki or docs website>`;
+
+	public static description = stripIndent`
+		DEPRECATED alias for the 'fleets' command
+
+		${AppsCmd.renamedMsg
+			.split('\n')
+			.map((l) => `\t\t${l}`)
+			.join('\n')}
+
+		For command usage, see 'balena help fleets'
+	`;
+	public static examples = [];
+	public static usage = 'apps';
+	public static flags = FleetsCmd.flags;
+	public static authenticated = FleetsCmd.authenticated;
+	public static primary = FleetsCmd.primary;
+
+	public async run() {
+		// call this.parse() before deprecation message to parse '-h'
+		if (!this.parsed) {
+			this.parse<FlagsDef, {}>(AppsCmd);
+			this.parsed = true;
+		}
+		if (process.stderr.isTTY) {
+			const { warnify } = await import('../utils/messages');
+			const msg = warnify(AppsCmd.renamedMsg);
+			console.error(msg);
+		}
+		await super.run();
 	}
 }

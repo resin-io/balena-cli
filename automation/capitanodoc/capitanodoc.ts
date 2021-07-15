@@ -37,6 +37,7 @@ const capitanoDoc = {
 			title: 'Application',
 			files: [
 				'build/commands/apps.js',
+				'build/commands/fleets.js',
 				'build/commands/app/index.js',
 				'build/commands/app/create.js',
 				'build/commands/app/purge.js',
