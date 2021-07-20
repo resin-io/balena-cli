@@ -1,4 +1,17 @@
 - commits:
+    - subject: Add provisioning key name option to config generate options
+      hash: 7d2fb0350f5397d9d80d9c5655dd0f416c54353a
+      body: ''
+      footer:
+        Change-Type: minor
+        change-type: minor
+        Signed-off-by: Nitish Agarwal 1592163+nitishagar@users.noreply.github.com
+        signed-off-by: Nitish Agarwal 1592163+nitishagar@users.noreply.github.com
+      author: Nitish Agarwal
+      nested: []
+  version: 12.45.0
+  date: 2021-07-20T06:48:50.563Z
+- commits:
     - subject: Update 'devDependencies' in package.json
       hash: cfd790a193b205c7caf1e6c2c066ae9fbbf55788
       body: ''
